@@ -11,15 +11,14 @@ function App() {
 
   useEffect(() =>{
     dispatch(getAll());
-  },[])
+  },[{}])
 
 
   return (
     <div className="App">
-      <h1>Henry Videogames</h1>
       <Routes>
         <Route exact path='/' element={<Landing/>}/>
-        <Route PATH='/home' element={<Home/>}/>
+        <Route path='/home' element={<Home/>}/>
       </Routes>
     </div>
   );
