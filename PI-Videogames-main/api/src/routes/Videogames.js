@@ -7,61 +7,79 @@ const VideogamesC = require('../controllers/VideogamesC');
 
 
 const getApiVideogames = async ()=>{
-    let arrayGames = [];
-    //traigo los primeros 100
-    for(let i = 1; i< 6;i++){
-        const gamesApi = await axios.get(`https://api.rawg.io/api/games?key=${process.env.KEY_API}&page=${i}`);
-        arrayGames.push(gamesApi.data.results);
-        arrayGames.flat().length
-    }
-    const infoGames = arrayGames.flat().map(game=>{
-        return{
-            id: game.id,
-            name: game.name,
-            image: game.background_image,
-            genres: game.genres.map(gen=>{
-                return{
-                    id: gen.id,
-                    name: gen.name
-                }
-            })
+    try{
+        let arrayGames = [];
+        //traigo los primeros 100
+        for(let i = 1; i< 6;i++){
+            const gamesApi = await axios.get(`https://api.rawg.io/api/games?key=${process.env.KEY_API}&page=${i}`);
+            arrayGames.push(gamesApi.data.results);
+            arrayGames.flat().length
         }
-    })
-    return infoGames;
+        const infoGames = arrayGames.flat().map(game=>{
+            return{
+                id: game.id,
+                name: game.name,
+                image: game.background_image,
+                genres: game.genres.map(gen=>{
+                    return{
+                        id: gen.id,
+                        name: gen.name
+                    }
+                })
+            }
+        })
+        return infoGames;
+
+    }
+    catch(e){
+        console.log(e)
+    }
 }
 
 const getDbGames = async ()=>{
-    return await Videogame.findAll({
-        include: {
-            model: Gender,
-            attributes: ['name'],
-            through: {
-                attributes: []
+    try{
+
+        return await Videogame.findAll({
+            include: {
+                model: Gender,
+                attributes: ['name'],
+                through: {
+                    attributes: []
+                }
             }
-        }
-    })
+        })
+    }
+    catch(e){console.log(e)}
 }
 
 const getAll = async ()=>{
-    const gamesApi = await  getApiVideogames();
-    const gamesDb = await  getDbGames();
-    const allGames = gamesApi.concat(gamesDb);
-    return allGames;
+    try{
+        const gamesApi = await  getApiVideogames();
+        const gamesDb = await  getDbGames();
+        const allGames = gamesApi.concat(gamesDb);
+        return allGames;
+
+    }
+    catch(e){console.log(e)}
 }
 
 router.get('/', async(req,res)=>{
-    const {name} = req.query
-    let games = await getAll();
-    if(name){ 
-        let gamesName = games.filter(game=>game.name.toLowerCase().includes(name.toLocaleLowerCase()));
-        if(gamesName.length){
-            res.status(200).json(gamesName)
+    try{
+
+        const {name} = req.query
+        let games = await getAll();
+        if(name){ 
+            let gamesName = games.filter(game=>game.name.toLowerCase().includes(name.toLocaleLowerCase()));
+            if(gamesName.length){
+                res.status(200).json(gamesName)
+            }else{
+                res.status(404).send({msg: "Game not found"})
+            }
         }else{
-            res.status(404).send({msg: "Game not found"})
+            res.status(200).json(games)
         }
-    }else{
-        res.status(200).json(games)
     }
+    catch(e){console.log(e)}
 })
 
 

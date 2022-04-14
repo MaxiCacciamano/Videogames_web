@@ -6,7 +6,7 @@ export const Card = ({id,name, genres, image}) => {
       let araygenres=[];
       if (genres){
         for(let genre of genres){
-          typeof msj === 'object'?araygenres.push(genre.name):araygenres.push(genre)
+          typeof msj === 'object'?araygenres.push(genre):araygenres.push(genre.name)
         }
       }
       return araygenres.length ? araygenres.join(','):'Genres not found'

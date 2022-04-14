@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description_raw :{
+    description :{   //description_raw 
       type:DataTypes.TEXT,
       allowNull:false
     },
@@ -25,10 +25,10 @@ module.exports = (sequelize) => {
     rating:{
       type:DataTypes.DECIMAL,
     },
-    background_image:{
+    image:{    //background_image
       type:DataTypes.TEXT,
     },
-    createdDb:{
+    createdInDatabase:{
       type:DataTypes.BOOLEAN,
       allowNull:false,
       defaultValue:true,

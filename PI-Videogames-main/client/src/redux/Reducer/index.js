@@ -2,7 +2,10 @@ import {GET_VIDEOGAMES} from '../../Constant/index'
 
 const initialState = {
     videogames:[],
-    genres:[]
+    videogame:[],
+    genres:[],
+    name:"",
+    order:""
 }
 
 export default function rootReducer(state = initialState, action){
@@ -18,6 +21,11 @@ export default function rootReducer(state = initialState, action){
                 ...state,
                 genres: action.payload
             }
+        case "SET_ORDER":
+                return {
+                    ...state,
+                    order: action.payload
+            } 
             default:
                 return state;
     }
