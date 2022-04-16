@@ -15,14 +15,9 @@ export const Home = () => {
   const indexFirstVideogames = indexLastvideogames - videoGamesPerPage;
   const currentVideogames = videogames.slice(indexFirstVideogames, indexLastvideogames);
 
-  const pagination = ( nro) => {
-    nro.preventDefault();
-    setCurrentPage(nro);
+  const pagination = ( e) => {
+    setCurrentPage(e);
   };
-
-  useEffect (() => {
-    dispatch(getAll({}))
-  }, [dispatch])
 
   return (
     <>
