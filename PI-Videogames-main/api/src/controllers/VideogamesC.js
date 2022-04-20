@@ -25,13 +25,13 @@ const idVideoGames = async(req,res,next)=>{
             //else (si no es un juego creado, voy a buscar la info a la API)
             try {
                 const response = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${KEY_API}`);
-                let { id, name, background_image, genres, description, released: releaseDate, rating, platforms } = response.data;
+                let { id, name, image, genres, description, released: releaseDate, rating, platforms } = response.data;
                 genres = genres.map(g => g.name); // de la API me trae un array de objetos, mapeo solo el nombre del genero
                 platforms = platforms.map(p => p.platform.name); // de la API me trae un array de objetos, mapeo solo el nombre de la plataforma
                 return res.json({
                     id,
                     name,
-                    background_image,
+                    image,
                     genres,
                     description,
                     releaseDate,
@@ -53,21 +53,22 @@ const idVideoGames = async(req,res,next)=>{
 
 const postGames= async(req,res,next)=>{
     try{
-        const {name,
-             description_raw, 
+        const {
+             name,
+             description, 
              released, 
              rating,
-             background_image,
+             image,
              genres,
-             createdDb 
+             createdInDatabase
             } = req.body
              const createGame = await Videogame.create({ 
                  name,
-                 description_raw,
+                 description,
                  released,
                  rating,
-                 background_image,
-                 createdDb
+                 image,
+                 createdInDatabase
                 });
             let genresDB = await Gender.findAll({
                 where:{

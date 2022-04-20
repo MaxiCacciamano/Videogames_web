@@ -11,7 +11,7 @@ export default function Paginado({videoGamesPerPage, videogames, pagination}){
             <ul>
                 
                 {pagNumbers?.map(e=>(
-                    <li >
+                    <li key={e}>
                         <button onClick={()=> pagination(e)}>{e}</button>
                     </li>
     ))}

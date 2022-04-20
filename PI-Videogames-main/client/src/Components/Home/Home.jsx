@@ -2,8 +2,12 @@ import { React, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {Card} from '../VideoGame/Card'
 import OrderByName from '../Order/OrderByName'
+import OrderByRating from '../Order/OrderByRating'
 import Paginado from '../Paginado/Paginado';
-import {getAll} from '../../redux/Actions/index';
+import FilterBygeners from '../Filter/FilterBygeners';
+import FilterByOrigen from '../Filter/FilterByOrigen';
+import SearchBar from '../SearchBar/SearchBar';
+import {Link} from 'react-router-dom';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -25,16 +29,24 @@ export const Home = () => {
        <h1>video games for you</h1>
     </div> 
     <div>
-      <OrderByName
-      setCurrentPage={setCurrentPage}
-      />
+      <Link to="/createVideogames">
+        Create videogames
+      </Link>
     </div>
     <div>
-      <Paginado 
-      videoGamesPerPage={videoGamesPerPage}
-      videogames={videogames.length}
-      pagination={pagination}
-      />
+      <SearchBar/>
+    </div>
+    <div>
+      <OrderByName/>
+    </div>
+    <div>
+      <OrderByRating/>
+    </div>
+    <div>
+      <FilterBygeners/>
+    </div>
+    <div>
+      <FilterByOrigen/>
     </div>
     <div>
        {
@@ -45,6 +57,13 @@ export const Home = () => {
          :
          <h1>Cragando....</h1>
        }
+    </div>
+    <div>
+      <Paginado 
+      videoGamesPerPage={videoGamesPerPage}
+      videogames={videogames.length}
+      pagination={pagination}
+      />
     </div>
     </>
   )

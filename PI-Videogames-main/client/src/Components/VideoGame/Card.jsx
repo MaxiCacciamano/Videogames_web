@@ -16,18 +16,17 @@ export const Card = ({id,name, genres, image}) => {
   return (
     <>
     <div>
+      <Link to={`/detail/${id}`}>
         <img src={image} alt="Not found"/>
+      </Link>
     </div>
     <div>
        <h2>{name}</h2>
        <p>{Arraygenres()}</p>
-        </div>
-    <div>
-       <Link to={`/detail/${id}`}>
-       <button >About</button>
-       </Link>
     </div>
-
+    <div>
+       <button >About</button>
+    </div>
     </>
   )
 }

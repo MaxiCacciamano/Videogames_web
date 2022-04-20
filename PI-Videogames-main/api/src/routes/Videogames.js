@@ -20,6 +20,9 @@ const getApiVideogames = async ()=>{
                 id: game.id,
                 name: game.name,
                 image: game.background_image,
+                description: game.description_raw,
+                released: game.released,
+                rating: game.rating,
                 genres: game.genres.map(gen=>{
                     return{
                         id: gen.id,

@@ -6,7 +6,7 @@ const { KEY_API } = process.env;
 const getGenresApi = async(req, res, next)=>{
     try{
         const GenresDB = await Gender.findAll();
-        if(GenresDB.length) res.send(GenresDB) //si existe los saco de la bd 
+        if(GenresDB.length) return res.send(GenresDB) //si existe los saco de la bd 
 
         const resGenres = await axios.get(`https://api.rawg.io/api/genres?key=${KEY_API}`);
         const genresResults = resGenres.data.results;
@@ -24,10 +24,10 @@ const getGenresApi = async(req, res, next)=>{
                 name: game.name
             }
         });
-        res.status(200).send(genresREADY)
+       return res.status(200).send(genresREADY)
     }
     catch(e){
-        res.status(404).send("Not found")
+        return res.status(404).send("Not found")
         console.log("error al traer los genres", e)
     }
 }
