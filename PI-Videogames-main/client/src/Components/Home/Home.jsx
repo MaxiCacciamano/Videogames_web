@@ -8,6 +8,7 @@ import FilterBygeners from '../Filter/FilterBygeners';
 import FilterByOrigen from '../Filter/FilterByOrigen';
 import SearchBar from '../SearchBar/SearchBar';
 import {Link} from 'react-router-dom';
+import {getAll} from '../../redux/Actions/index'
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -23,11 +24,21 @@ export const Home = () => {
     setCurrentPage(e);
   };
 
+  function handleRefresh(e){
+    e.preventDefault();
+    dispatch(getAll());
+  }
+
   return (
     <>
     <div>
        <h1>video games for you</h1>
     </div> 
+    <div>
+      <button onClick={e=>handleRefresh(e)}>
+        Refresh
+      </button>
+    </div>
     <div>
       <Link to="/createVideogames">
         Create videogames

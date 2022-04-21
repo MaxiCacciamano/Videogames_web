@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useDispatch} from 'react-redux';
-import { getVideogamesName} from '../../redux/Actions/index'
+import { getVideogamesName, getAll} from '../../redux/Actions/index'
 
 
 export const SearchBar = () => {
@@ -18,8 +18,19 @@ export const SearchBar = () => {
         console.log(name)
     }
 
+    function handleRefresh(e){
+      e.preventDefault();
+      dispatch(getAll());
+    }
+  
+
   return (
     <>
+        <div>
+      <button onClick={e=>handleRefresh(e)}>
+        Refresh
+      </button>
+    </div>
     
     <form onSubmit={(e)=>handleSubmit(e)}>
       <input

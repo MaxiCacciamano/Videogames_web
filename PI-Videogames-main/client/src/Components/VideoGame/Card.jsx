@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 
 export const Card = ({id,name, genres, image}) => {
     const Arraygenres = function (){
-      let araygenres=[];
+      let arraygenres=[];
       if (genres){
         for(let genre of genres){
-          typeof msj === 'object'?araygenres.push(genre):araygenres.push(genre.name)
+          typeof msj === 'object'?arraygenres.push(genre):arraygenres.push(genre.name)
         }
       }
-      return araygenres.length ? araygenres.join(','):'Genres not found'
+      return arraygenres.length ? arraygenres.join(', '):'Genres not found'
     }
 
 

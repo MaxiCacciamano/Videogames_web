@@ -51,6 +51,7 @@ const getDbGames = async ()=>{
                 }
             }
         })
+        
     }
     catch(e){console.log(e)}
 }
@@ -86,7 +87,7 @@ router.get('/', async(req,res)=>{
 })
 
 
-router.get('/:idVideogame', VideogamesC.idVideoGames);
+router.get('/:id', VideogamesC.idVideoGames);
 router.post('/videogame',VideogamesC.postGames)
 
 

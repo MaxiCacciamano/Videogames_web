@@ -2,10 +2,10 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {filterByGenres} from '../../redux/Actions';
 
-export const FilterBygeners = () => {
+const FilterBygeners = () =>  {
 
-  const dispatch = useDispatch();
   const genders = useSelector(state=> state.genders)
+  const dispatch = useDispatch();
 
   function handleGenres (e) {
     e.preventDefault();
@@ -20,10 +20,11 @@ export const FilterBygeners = () => {
     </div>
     <div>
       <select onChange={e=>handleGenres(e)}>
-      <option value="all">All</option>
+      <option value="All">All</option>
+      <option name = "genres"></option>
       {
        genders && genders.map(e=>(
-            <option key={e.name} value={e.name}  >{e.name}</option>
+            <option key={e.name} name={e.geners} value={e.name}  >{e.name}</option>
         ))
       }
       </select>

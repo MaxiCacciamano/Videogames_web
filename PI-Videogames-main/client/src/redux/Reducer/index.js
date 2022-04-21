@@ -83,25 +83,35 @@ export default function rootReducer(state = initialState, action){
 
         
         case "FILTER_BY_GENRES":
-            const allVideoGames = state.allVideoGames;
-            var genFilter = function(arr) {
-                var aux = arr.filter(e => e.name === action.payload)
-                if(aux.length > 0){
-                    //console.log('algo')
-                    return true
-                }else{
-                    //console.log('nada')
-                    return false
-                }
-            }
-            var filtrados = action.payload === 'all' ? allVideoGames : allVideoGames.filter(e => genFilter(e.genders)) //filtro el state que siempre tiene 
+            const allVideogames= state.allVideoGames
+            const VideogasmesFilter = 
+            action.payload === "All"
+            ? allVideogames
+            : allVideogames.filter(e=>e.genres === action.payload)
             return{
                 ...state,
-                allVideoGames: filtrados //renderizo el state pisable
-                } 
+                videogames: VideogasmesFilter 
+            }
+            // var genFilter = function(arr) {
+            //     var aux = arr.filter(e => e.name === action.payload)
+            //     if(aux.length > 0){
+            //         console.log('algo')
+            //         return true
+            //     }else{
+            //         console.log('nada')
+            //         return false
+            //     }
+            // }
+            // var filtrados = action.payload === 'All'
+            //  ?  allVideoGames : 
+            //   allVideoGames.filter(e => genFilter(e.genders)) //filtro el state que siempre tiene 
+            // return{
+            //     ...state,
+            //     videogames: filtrados //renderizo el state pisable
+            //     } 
             
             case "FILTER_BY_ORIGEN":
-                    const origen = action.payload === "Created" ? state.videogames.filter(el => el.createdInDatabase) : state.videogames.filter(el => !el.createdInDatabase)
+                    const origen = action.payload === "Created" ? state.videogame.filter(el => el.createdInDatabase) : state.videogame.filter(el => !el.createdInDatabase)
                     return {
                         ...state,
                         videogames: action.payload === "All" ? state.videogame : origen

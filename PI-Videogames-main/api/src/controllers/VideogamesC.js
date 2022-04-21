@@ -4,34 +4,51 @@ const {Videogame, Gender} = require('../db');
 
 const idVideoGames = async(req,res,next)=>{
     try{
-        const { idVideogame } = req.params
+        const  ids  = req.params.id
         
         //verifico si es un juego creado y me trae el detalle de la DB
-        if (idVideogame.includes('-')) {
-            let videogameDb = await Videogame.findOne({
-                where: {
-                    id: idVideogame,
-                },
-                include: Gender
-            })
-            //Parseo el objeto
-            videogameDb = JSON.stringify(videogameDb);
-            videogameDb = JSON.parse(videogameDb);
-            
-            //dejo un array con los nombres de genero solamente
-            videogameDb.genres = videogameDb.genres.map(g => g.name);
-            res.json(videogameDb)
+        if (ids.includes('-')) {
+            try{
+
+                const videogameDb = await Videogame.findOne({
+                    where: {
+                        id: ids,
+                    },
+                    include: Gender
+                })
+                const dateDb={
+                    id: videogameDb.id,
+                    name: videogameDb.name,
+                    description: videogameDb.description,
+                    released: videogameDb.released,
+                    rating: videogameDb.rating,
+                    image: videogameDb.image,
+                    genres: videogameDb.genders.map((e)=>{
+                        return {
+                            name: e.name
+                        }
+                    }),
+                    
+                    //agregar plataformas
+                }
+                if(!videogameDb)return res.status(404).send("the game does not exist")
+                return res.status(200).json(dateDb)
+            }
+            catch(e){
+                next(e);
+                console.log("error en el get de idvideogames");
+            }
         } else {
             //else (si no es un juego creado, voy a buscar la info a la API)
             try {
-                const response = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${KEY_API}`);
-                let { id, name, image, genres, description, released: releaseDate, rating, platforms } = response.data;
-                genres = genres.map(g => g.name); // de la API me trae un array de objetos, mapeo solo el nombre del genero
+                const response = await axios.get(`https://api.rawg.io/api/games/${ids}?key=${KEY_API}`);
+                let { id, name, background_image, genres, description, released: releaseDate, rating, platforms } = response.data;
+                genres = genres.map(g => {return { name: g.name}}); // de la API me trae un array de objetos, mapeo solo el nombre del genero
                 platforms = platforms.map(p => p.platform.name); // de la API me trae un array de objetos, mapeo solo el nombre de la plataforma
                 return res.json({
                     id,
                     name,
-                    image,
+                    image : background_image,
                     genres,
                     description,
                     releaseDate,

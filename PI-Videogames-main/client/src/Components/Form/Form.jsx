@@ -68,8 +68,6 @@ export const Form = () => {
     function handleSubmit(e){
       e.preventDefault();
       console.log(input)
-      dispatch(postVideogames(input))
-      alert("Video game created successfully")
       setInput({
         name:"",
         description:"",
@@ -79,14 +77,12 @@ export const Form = () => {
         platforms: [],
         genres:[]
       })
+      if (input.name.length > 0 && input.description.length > 0 && input.rating > 0) return dispatch(postVideogames(input)),alert("Video game created successfully")
+     alert("debe completar algunos campos")
+      alert("Video game created successfully")
       // history.push('/home')
     }
     
-    useEffect(()=>{
-      if(input.name > 0 && input.released >0 && input.rating > 0) setErrors(false)
-      setErrors(true)
-    },[])
-
   return (
     <>
       <div>
@@ -170,7 +166,7 @@ export const Form = () => {
                      </select>
                      <ul><li>{input.genres.map(e=>e+" ,")}</li></ul>
 
-                     <button type="submit" disabled = {errors}>Create videogames</button>
+                     <button type="submit" >Create videogames</button>
                   </div>
               </div>
           </form>
