@@ -1,23 +1,30 @@
 import React,{useState, useEffect} from 'react'
 import {Link,} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {postVideogames, getGenres} from '../../redux/Actions/index'
+import {postVideogames, getplatforms} from '../../redux/Actions/index'
 
 export const Form = () => {
     const dispatch = useDispatch();
+
+    
     // const history = useHistory(); 
-    const genres = useSelector((state) => state.genders);
+    const genres = useSelector((state) => state.genres);
+    const platforms = useSelector((state) => state.platforms);
     const [errors, setErrors] = useState(true);
     const [input, setInput] = useState({
-        name:"",
-        description:"",
-        released:"",
-        rating:"",
-        background_image:"",
-        platforms: [],
-        genres:[]
-      });
-
+      name:"",
+      description:"",
+      released:"",
+      rating:"",
+      background_image:"",
+      platforms: [],
+      genres:[],
+    });
+    
+    useEffect(()=>{
+      dispatch(getplatforms() )
+    }, [dispatch])
+  
       
       
       function validate(input){
@@ -64,6 +71,13 @@ export const Form = () => {
         genres:[...input.genres, e.target.value]
       })
     }
+
+    function handlePlatforms(p){
+      setInput({
+        ...input,
+        platforms:[...input.platforms, p.target.value]
+      })
+    }
     
     function handleSubmit(e){
       e.preventDefault();
@@ -106,6 +120,7 @@ export const Form = () => {
                     <p>{errors.name}</p>
                   )} */}
                   </div>
+
                   <div>
                       <labe>description:</labe>
                      <textarea
@@ -122,6 +137,7 @@ export const Form = () => {
                     <p>{errors.description}</p>
                   )} */}
                   </div>
+
                   <div>
                      <label>Released date:</label>
                       <input
@@ -133,6 +149,7 @@ export const Form = () => {
                       onChange={e=>handleChange(e)}
                   />
                   </div>
+
                   <div>
                       <label>Rating:</label>
                       <input
@@ -147,6 +164,7 @@ export const Form = () => {
                         <p>{errors.rating}</p>
                       )}
                   </div>
+
                   <div>
                       <label>Image:</label>
                       <input
@@ -158,6 +176,7 @@ export const Form = () => {
                       onChange={e=>handleChange(e)}
                       />
                   </div>
+
                   <div>
                      <select onChange={handleSelect}>
                      {genres.map(e => (
@@ -166,9 +185,19 @@ export const Form = () => {
                      </select>
                      <ul><li>{input.genres.map(e=>e+" ,")}</li></ul>
 
-                     <button type="submit" >Create videogames</button>
+                  </div>
+
+                  <div>
+                  <select onChange={e=>handlePlatforms(e)}>
+                    {platforms.map(p=>(
+                      <option value = {p.name} key={p.name} >{p.name}</option>
+                    ))}
+                  </select>
+                  <ul><li>{input.platforms.map(p=>p+" ,")}</li></ul>
                   </div>
               </div>
+
+                     <button type="submit" >Create videogames</button>
           </form>
 
     </>

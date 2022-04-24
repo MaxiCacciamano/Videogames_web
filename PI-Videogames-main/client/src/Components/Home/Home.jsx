@@ -31,9 +31,15 @@ export const Home = () => {
 
   return (
     <>
+    <header>
     <div>
        <h1>video games for you</h1>
     </div> 
+    <div>
+      <SearchBar/>
+    </div>
+
+    </header>
     <div>
       <button onClick={e=>handleRefresh(e)}>
         Refresh
@@ -43,9 +49,6 @@ export const Home = () => {
       <Link to="/createVideogames">
         Create videogames
       </Link>
-    </div>
-    <div>
-      <SearchBar/>
     </div>
     <div>
       <OrderByName/>

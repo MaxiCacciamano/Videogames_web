@@ -2,7 +2,8 @@
 const initialState = {
     videogames:[],
     videogame:[],
-    genders:[],
+    genres:[],
+    platforms:[],
     detail:[],
     allVideoGames:[], // para ordenamiento
 }
@@ -14,14 +15,21 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 videogame: action.payload,
-                videogames: action.payload
+                videogames: action.payload,
+                allVideoGames: action.payload
                 
             }
         case "GET_GENRES":
             return{
                 ...state,
-                genders: action.payload
+                genres: action.payload
             }
+        case "GET_PLATFORMS":
+            return{
+                ...state,
+                platforms: action.payload
+            }
+
         case "GET_VIDEOGAMES_NAME":
             return{
                 ...state,
@@ -83,46 +91,25 @@ export default function rootReducer(state = initialState, action){
 
         
         case "FILTER_BY_GENRES":
-            const allVideogames= state.allVideoGames
-            const VideogasmesFilter = 
-            action.payload === "All"
-            ? allVideogames
-            : allVideogames.filter(e=>e.genres === action.payload)
-            return{
+            const allStateGames = state.allVideoGames
+            const tempGames = allStateGames.filter(p => {
+                if(p.genres){ 
+                    const genres = p.genres.map( p => p.name)
+                    return genres.includes(action.payload)}
+
+            })           
+            return {
                 ...state,
-                videogames: VideogasmesFilter 
+                videogames: action.payload === 'sinFiltro' ? allStateGames : tempGames,
+
             }
-            // var genFilter = function(arr) {
-            //     var aux = arr.filter(e => e.name === action.payload)
-            //     if(aux.length > 0){
-            //         console.log('algo')
-            //         return true
-            //     }else{
-            //         console.log('nada')
-            //         return false
-            //     }
-            // }
-            // var filtrados = action.payload === 'All'
-            //  ?  allVideoGames : 
-            //   allVideoGames.filter(e => genFilter(e.genders)) //filtro el state que siempre tiene 
-            // return{
-            //     ...state,
-            //     videogames: filtrados //renderizo el state pisable
-            //     } 
-            
+
             case "FILTER_BY_ORIGEN":
                     const origen = action.payload === "Created" ? state.videogame.filter(el => el.createdInDatabase) : state.videogame.filter(el => !el.createdInDatabase)
                     return {
                         ...state,
                         videogames: action.payload === "All" ? state.videogame : origen
                     }  
-                // const origVg = state.allVgGenders
-                // const origen = action.payload === "Created" ? origVg.filter(e=> e.origin === "Created"): origVg.filter(e=> e.origin === "Api")
-                // return{
-                //     ...state,
-                //     videogames: action.payload === "All"?state.allVgGenders:origen
-                // }
-
             default:
                 return state;
     }

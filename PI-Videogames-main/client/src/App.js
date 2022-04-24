@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {Route, Routes} from 'react-router-dom';
 
-import {getAll, getGenres, getVideogamesDetail,getVideogamesById } from '../src/redux/Actions';
+import {getAll, getGenres, getVideogamesDetail,getVideogamesById,getplatforms } from '../src/redux/Actions';
 import {Landing} from '../src/Components/Landing/Landing.jsx';
 import {Home} from '../src/Components/Home/Home.jsx';
 import {Detail} from '../src/Components/Detail/Detail.jsx';
@@ -21,6 +21,10 @@ function App() {
   useEffect(()=>{
     dispatch(getGenres())
   }, [])
+
+  useEffect(()=>{
+    dispatch(getplatforms())
+  },[])
 
 
 

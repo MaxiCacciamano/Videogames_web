@@ -56,17 +56,6 @@ export function getVideogamesById (id) {
     }
 }
     
-//     return async function (dispatch) {
-//         try {
-//             const detail = await axios.get(`http://localhost:3001/videogame/${id}`);
-//             return dispatch ({
-//                 type: "GET_DETAILS_GAMES",
-//                 payload: detail.data
-//             })
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
 
 export const getGenres = () =>{
     return function(dispatch){
@@ -79,6 +68,19 @@ export const getGenres = () =>{
         })
         .catch(e=>console.log('error en el getGneres de actions',e))
         
+    }
+}
+
+export const getplatforms = () =>{
+    return function(dispatch){
+        return axios.get(`http://localhost:3001/platforms/`)
+        .then((data)=>{
+            return dispatch({
+                type: "GET_PLATFORMS",
+                payload: data.data
+            })
+        })
+        .catch(e=>console.log('error en el getplatforms del action'))
     }
 }
 //---conexion entre el back y el front de forma asincrona---

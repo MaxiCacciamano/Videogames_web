@@ -53,7 +53,13 @@ export const Detail = () => {
                     </ul>
                 </div>
                 <div>
-                    <p>Plataforms:<br/>{allDetail.platforms}<br/></p>
+                    <ul>
+                        Platforms: {allDetail.platforms.map(plat=>{
+                            return(
+                                <li key={plat.name}>{plat}</li>
+                            )
+                        })}
+                    </ul>
                 </div>
             </div>  : 
                 <div>

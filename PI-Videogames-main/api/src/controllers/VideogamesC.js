@@ -1,6 +1,6 @@
 const axios = require('axios');
 const {KEY_API} = process.env
-const {Videogame, Gender} = require('../db');
+const {Videogame, Gender, Platforms} = require('../db');
 
 const idVideoGames = async(req,res,next)=>{
     try{
@@ -13,9 +13,18 @@ const idVideoGames = async(req,res,next)=>{
                 const videogameDb = await Videogame.findOne({
                     where: {
                         id: ids,
+
                     },
-                    include: Gender
-                })
+                    
+                    include: [
+                        {
+                            model: Gender,
+                        },
+                        {
+                            model: Platforms,
+                        }
+                    ]
+                },)
                 const dateDb={
                     id: videogameDb.id,
                     name: videogameDb.name,
@@ -28,6 +37,11 @@ const idVideoGames = async(req,res,next)=>{
                             name: e.name
                         }
                     }),
+                    platforms: videogameDb.platforms.map((p)=>{
+                        return {
+                            name: p.name
+                        }
+                    })
                     
                     //agregar plataformas
                 }
@@ -77,6 +91,7 @@ const postGames= async(req,res,next)=>{
              rating,
              image,
              genres,
+             platforms,
              createdInDatabase
             } = req.body
              const createGame = await Videogame.create({ 
@@ -92,7 +107,13 @@ const postGames= async(req,res,next)=>{
                     name: genres
                 }
             })
+            let platformsDB = await Platforms.findAll({
+                where:{
+                    name: platforms
+                }
+            })
             createGame.addGender(genresDB);
+            createGame.addPlatform(platformsDB);
             res.status(200).send("Video game created successfully");
             console.log(createGame);
         }

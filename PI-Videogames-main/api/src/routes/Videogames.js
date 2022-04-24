@@ -2,7 +2,7 @@ const { KEY_API } = process.env;
 const { Router } = require('express');
 const router = Router();
 const axios = require('axios').default;
-const { Videogame, Gender } = require('../db');
+const { Videogame, Gender, Platforms } = require('../db');
 const VideogamesC = require('../controllers/VideogamesC');
 
 
@@ -28,6 +28,12 @@ const getApiVideogames = async ()=>{
                         id: gen.id,
                         name: gen.name
                     }
+                }),
+                platforms: game.platforms.map(plat=>{
+                    return{
+                        id: plat.platform.id,
+                        name: plat.platform.name
+                    }
                 })
             }
         })
@@ -42,18 +48,28 @@ const getApiVideogames = async ()=>{
 const getDbGames = async ()=>{
     try{
 
-        return await Videogame.findAll({
-            include: {
-                model: Gender,
-                attributes: ['name'],
-                through: {
-                    attributes: []
+        const DbInfo = await Videogame.findAll({
+            include: [
+                {
+                    model: Gender,
+                    attributes: ['name'], 
+                    through: {
+                        attributes: []
+                    }
+                },
+                {
+                    
+                    model : Platforms,
+                    attributes: ['name'],
+                    through:{
+                        attributes: {}
+                    }
                 }
-            }
+            ]
         })
-        
+        return DbInfo;
     }
-    catch(e){console.log(e)}
+    catch(e){console.log("Algo slaio mal al traer videojuegos desde la base de datos",e)}
 }
 
 const getAll = async ()=>{
