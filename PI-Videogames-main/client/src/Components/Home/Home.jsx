@@ -9,6 +9,7 @@ import FilterByOrigen from '../Filter/FilterByOrigen';
 import SearchBar from '../SearchBar/SearchBar';
 import {Link} from 'react-router-dom';
 import {getAll} from '../../redux/Actions/index'
+import style from './home.module.css'
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -31,15 +32,13 @@ export const Home = () => {
 
   return (
     <>
-    <header>
     <div>
        <h1>video games for you</h1>
     </div> 
     <div>
       <SearchBar/>
     </div>
-
-    </header>
+     <section> 
     <div>
       <button onClick={e=>handleRefresh(e)}>
         Refresh
@@ -62,11 +61,11 @@ export const Home = () => {
     <div>
       <FilterByOrigen/>
     </div>
-    <div>
+    <div className={style.cardscontainer} >
        {
          currentVideogames?.length > 0?
          currentVideogames?.map(e=>{
-           return <Card image={e.image} name={e.name} genres={e.genres} id={e.id} key={e.id}/>
+           return <Card className={style.grid} image={e.image} name={e.name} genres={e.genres} id={e.id} key={e.id}/>
          })
          :
          <h1>Cragando....</h1>
@@ -79,6 +78,11 @@ export const Home = () => {
       pagination={pagination}
       />
     </div>
+
+    </section>
+     <footer> *
+      <p>proyecto p.i</p>
+     </footer> 
     </>
   )
 }

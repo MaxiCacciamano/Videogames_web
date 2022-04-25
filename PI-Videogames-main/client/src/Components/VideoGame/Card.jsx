@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
+import style from './card.module.css';
 
 export const Card = ({id,name, genres, image, platforms}) => {
     const Arraygenres = function (){
@@ -25,20 +26,25 @@ export const Card = ({id,name, genres, image, platforms}) => {
 
 
   return (
-    <>
-    <div>
-      <Link to={`/detail/${id}`}>
-        <img src={image} alt="Not found"/>
-      </Link>
+    // container
+  <div className = {style.main}>
+     {/* <div className = {style.card}> */}
+     {/* card */}
+        <div className = {style.box}>  
+          <div className = {style.imgBx}>
+            <img src={image} alt="img not found" />
+          </div>
+          <div className = {style.content}>
+          <p>{name}</p>
+          <p>{Arraygenres()}</p>
+          <p>{arrayPlatforms()}</p>
+         <Link to={`/detail/${id}`}>
+            <button>Read More</button>
+         </Link>
+          </div>
+        </div>
     </div>
-    <div>
-       <h2>{name}</h2>
-       <p>{Arraygenres()}</p>
-       <p>{arrayPlatforms()}</p>
-    </div>
-    <div>
-       <button >About</button>
-    </div>
-    </>
+
+            
   )
 }
