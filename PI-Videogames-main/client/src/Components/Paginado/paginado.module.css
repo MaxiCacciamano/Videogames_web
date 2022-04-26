@@ -1,0 +1,27 @@
+.paginado ul{
+    list-style: none;
+    justify-content:center;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+}
+
+.paginado li.active {
+    background-color: white;
+    color: black;
+}
+
+.paginado  li{
+    margin: 10px;
+    border-radius: 5px 2px;
+    border: 1px solid white;
+    cursor: pointer;
+    padding:10px;
+}
+.paginado p{
+    margin:auto;
+}
+
+.paginado li:hover{
+    background-color: darkgrey;
+}

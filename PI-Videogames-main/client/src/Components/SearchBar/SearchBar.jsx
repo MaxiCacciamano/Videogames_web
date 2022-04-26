@@ -18,23 +18,12 @@ export const SearchBar = () => {
         console.log(name)
     }
 
-    function handleRefresh(e){
-      e.preventDefault();
-      dispatch(getAll());
-    }
-  
 
   return (
     <>
-        <div>
-      <button onClick={e=>handleRefresh(e)}>
-        Refresh
-      </button>
-    </div>
     
     <form onSubmit={(e)=>handleSubmit(e)}>
-      <input
-      type="text"
+      <input 
       placeholder="Search videogame"
       onChange={e=>handleInput(e)}
       />

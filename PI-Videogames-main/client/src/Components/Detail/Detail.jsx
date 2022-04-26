@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getVideogamesById, getAll} from "../../redux/Actions/index"
 import {Link} from 'react-router-dom';
 
+
 export const Detail = () => {
     const allDetail = useSelector((state)=>state.detail)
     const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export const Detail = () => {
     // const detail = useSelector((state)=> state.detail)
   useEffect(() => {
       dispatch(getVideogamesById(id));
-    },[dispatch, id])
+    },[dispatch])
     
 
     
@@ -26,7 +27,7 @@ export const Detail = () => {
             <Link to="/home"><button>Back</button></Link>
             <br /><br />
             {allDetail.name ? 
-            <div>
+            <div >
                 <div>
                     <h1>Name:<br/>{allDetail.name}<br/></h1>
                 </div>

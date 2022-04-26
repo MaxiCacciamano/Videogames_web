@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import {Link,} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {postVideogames, getplatforms} from '../../redux/Actions/index'
+import style from './form.module.css'
 
 export const Form = () => {
     const dispatch = useDispatch();
@@ -106,7 +107,7 @@ export const Form = () => {
           <form onSubmit={e=>handleSubmit(e)}>
               <div>
                   <div>
-                  <label>Name:</label>
+                  <p>Name
                   <input
                      type="text"
                      value={input.name}
@@ -116,6 +117,7 @@ export const Form = () => {
                     //  key={input.name}
                      onChange={e=>handleChange(e)}
                   />
+                  </p>
                   {/* {errors.name && (
                     <p>{errors.name}</p>
                   )} */}

@@ -32,35 +32,58 @@ export const Home = () => {
 
   return (
     <>
-    <div>
+    <header>
+    <div className={style.title}>
        <h1>video games for you</h1>
     </div> 
-    <div>
-      <SearchBar/>
-    </div>
-     <section> 
-    <div>
+    <div className={style.filtros}>
+    {/* <ul>
+    <li>    
+    <Link to="/createVideogames">
+      Create videogames
+    </Link>  
+    </li>
+    </ul> */}
+    <ul>
+      <li>
+      <div>
       <button onClick={e=>handleRefresh(e)}>
         Refresh
       </button>
     </div>
-    <div>
+      </li>
+      <li>   
+      <SearchBar/>
+      </li>
+      <li>
+    
+      <OrderByName/>
+    
+      </li>
+      <li>
+    
+      <OrderByRating/>
+    
+      </li>
+      <li>
+    
+      <FilterBygeners/>
+    
+      </li>
+      <li>
+    
+      <FilterByOrigen/>
+    
+      </li>
+      <li className={style.create}> 
       <Link to="/createVideogames">
         Create videogames
-      </Link>
+      </Link>  
+      </li>
+    </ul>
     </div>
-    <div>
-      <OrderByName/>
-    </div>
-    <div>
-      <OrderByRating/>
-    </div>
-    <div>
-      <FilterBygeners/>
-    </div>
-    <div>
-      <FilterByOrigen/>
-    </div>
+    </header>
+     <section> 
     <div className={style.cardscontainer} >
        {
          currentVideogames?.length > 0?
@@ -68,7 +91,7 @@ export const Home = () => {
            return <Card className={style.grid} image={e.image} name={e.name} genres={e.genres} id={e.id} key={e.id}/>
          })
          :
-         <h1>Cragando....</h1>
+         <h1 className={style.cargando}>Cragando....</h1>
        }
     </div>
     <div>
@@ -80,7 +103,7 @@ export const Home = () => {
     </div>
 
     </section>
-     <footer> *
+     <footer> 
       <p>proyecto p.i</p>
      </footer> 
     </>

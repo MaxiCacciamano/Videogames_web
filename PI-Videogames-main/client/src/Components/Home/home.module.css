@@ -1,3 +1,64 @@
+.title h1{
+    font-family: 'Anton', sans-serif;
+    top:0;
+}
+header{
+    /* background-color:black; */
+    /* font-size: 20px; */
+    margin-top:-25px;
+    height:50px;	
+	width: auto;
+	margin-right: auto;
+	margin-left: auto;
+    position: initial;
+    width: 100%;
+    top: 0;
+
+
+}
+.title h1{
+    color: white;
+}
+body{
+    padding-top: 80px;
+}
+.filtros{
+
+    /* background: #333; */
+	color: white;
+	height: 80px;
+
+    width: 100%; /* hacemos que la cabecera ocupe el ancho completo de la página */
+	left: 0; /* Posicionamos la cabecera al lado izquierdo */
+	/* top: 0; Posicionamos la cabecera pegada arriba */
+	position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+
+}
+ .filtros ul{
+    height:100px;
+
+}
+.filtros ul{
+
+    list-style: none;
+    justify-content:center;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+}
+.filtros  li{
+    margin: 10px;
+    border-radius: 5px 2px;
+    border: 1px solid white;
+    cursor: pointer;
+    padding:5px; 
+    height:40px;
+    margin-top:-5px;
+}
+.create a{
+    text-decoration: none;
+    color:white;
+}
 .cardscontainer {
     display: grid;
     padding: 5px;
@@ -8,4 +69,9 @@
     grid-gap: 20px;
     justify-content: start;
     align-content: center;
+}
+
+.cargando  {
+    margin-top:200px;
+    margin-right: -900px;
 }

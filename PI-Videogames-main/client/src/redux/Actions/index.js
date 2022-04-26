@@ -38,7 +38,7 @@ export function getVideogamesById (id) {
                 const {data}= await axios.get(`http://localhost:3001/videogame/${id}`);
                 // console.log(data,"aca estoy")
                 if (data.createdInDatabase){
-                    const II = data.genres.map(e=> Object.values(e.name).join(''))
+                    const II = data.genres.map(e=> e.name.join(''))
                     data.genres=II
                 }
                 if(!data.createdInDatabase){
