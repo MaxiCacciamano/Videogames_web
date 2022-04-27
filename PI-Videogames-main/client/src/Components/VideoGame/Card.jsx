@@ -6,8 +6,8 @@ export const Card = ({id,name, genres, image, platforms}) => {
     const Arraygenres = function (){
       let arraygenres=[];
       if (genres){
-        for(let genre of genres){
-          typeof msj === 'object'?arraygenres.push(genre):arraygenres.push(genre.name)
+        for(let gen of genres){
+          typeof msj === 'object'?arraygenres.push(gen):arraygenres.push(gen.name)
         }
       }
       return arraygenres.length ? arraygenres.join(', '):'Genres not found'
@@ -36,7 +36,11 @@ export const Card = ({id,name, genres, image, platforms}) => {
           </div>
           <div className = {style.content}>
           <p>{name}</p>
+          <br />
+          <p>Genres:</p>
           <p>{Arraygenres()}</p>
+          <br />
+          <p>Platforms:</p>
           <p>{arrayPlatforms()}</p>
          <Link to={`/detail/${id}`}>
             <button>Read More</button>

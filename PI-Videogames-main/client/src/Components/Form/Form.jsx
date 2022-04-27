@@ -94,21 +94,20 @@ export const Form = () => {
       })
       if (input.name.length > 0 && input.description.length > 0 && input.rating > 0) return dispatch(postVideogames(input)),alert("Video game created successfully")
      alert("debe completar algunos campos")
-      alert("Video game created successfully")
-      // history.push('/home')
     }
     
   return (
     <>
       <div>
-        <Link to="/home"><button>Back</button></Link>
+        <Link to="/home"><button className={style.button}>Back</button></Link>
       </div>
           <h1>Create videogames</h1>
           <form onSubmit={e=>handleSubmit(e)}>
               <div>
-                  <div>
-                  <p>Name
+                  <div >
+                  <p className={style.input}>Name</p>
                   <input
+                     className={style.texto}
                      type="text"
                      value={input.name}
                      name="name"
@@ -117,15 +116,16 @@ export const Form = () => {
                     //  key={input.name}
                      onChange={e=>handleChange(e)}
                   />
-                  </p>
+                  
                   {/* {errors.name && (
                     <p>{errors.name}</p>
                   )} */}
                   </div>
 
                   <div>
-                      <labe>description:</labe>
+                      <p className={style.input}>description:</p>
                      <textarea
+                     className={style.texto}
                      cols = "50"
                      rows = "5"
                      type="text"
@@ -141,10 +141,11 @@ export const Form = () => {
                   </div>
 
                   <div>
-                     <label>Released date:</label>
+                     <p className={style.input}>Released date:</p>
                       <input
+                      className={style.texto}
                       type="date"
-                    value={input.released}
+                      value={input.released}
                       name="released"
                       placeholder="Release"
                       // key={input.released}
@@ -153,8 +154,9 @@ export const Form = () => {
                   </div>
 
                   <div>
-                      <label>Rating:</label>
+                      <p className={style.input}>Rating:</p>
                       <input
+                      className={style.texto}
                       type="number"
                       value={input.rating}
                       name="rating"
@@ -168,8 +170,9 @@ export const Form = () => {
                   </div>
 
                   <div>
-                      <label>Image:</label>
+                      <p className={style.input}>Image:</p>
                       <input
+                      className={style.texto}
                       type="text"  //type="image"
                       value={input.image}
                       name="image"
@@ -179,8 +182,9 @@ export const Form = () => {
                       />
                   </div>
 
-                  <div>
-                     <select onChange={handleSelect}>
+                  <div className={style.caja1} >
+                    <p>Genres</p>
+                     <select onChange={handleSelect} className={style.caja1}>
                      {genres.map(e => (
                             <option value = {e.name} key={e.name} >{e.name}</option>
                         ))}
@@ -189,17 +193,18 @@ export const Form = () => {
 
                   </div>
 
-                  <div>
-                  <select onChange={e=>handlePlatforms(e)}>
+                  <div className={style.caja2}>
+                    <p >Platforms</p>
+                  <select onChange={e=>handlePlatforms(e)} className={style.caja2}>
                     {platforms.map(p=>(
                       <option value = {p.name} key={p.name} >{p.name}</option>
                     ))}
                   </select>
-                  <ul><li>{input.platforms.map(p=>p+" ,")}</li></ul>
+                  <ul ><li>{input.platforms.map(p=>p+" ,")}</li></ul>
                   </div>
               </div>
 
-                     <button type="submit" >Create videogames</button>
+                     <button className={style.button} type="submit" >Create videogames</button>
           </form>
 
     </>

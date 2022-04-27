@@ -38,8 +38,12 @@ export function getVideogamesById (id) {
                 const {data}= await axios.get(`http://localhost:3001/videogame/${id}`);
                 // console.log(data,"aca estoy")
                 if (data.createdInDatabase){
-                    const II = data.genres.map(e=> e.name.join(''))
+                    const II = data.genres.map(e=> Object.values(e.name).join(''))
                     data.genres=II
+                    data.platforms === "string"
+                    ?data.platforms.map(plat=>plat)
+                    :data.platforms.map(p=>p.name.join(","))
+                    
                 }
                 if(!data.createdInDatabase){
                     data.description = data.description.replace(/(<([^>]+)>)/ig, '')
@@ -53,6 +57,8 @@ export function getVideogamesById (id) {
                 console.log("error en getvideogamesbyid", e)
             }
         }
+    }else{
+       {alert("error en getvideogames_by_id")}
     }
 }
     
@@ -89,6 +95,13 @@ export function postVideogames(payload){
         const res = await axios.post(`http://localhost:3001/videogame/videogame`, payload);
         console.log(res)
         return res;
+    }
+}
+
+export function removeDetail(payload){
+    return{
+        type: "REMOVE_DETAIL",
+        payload: {}
     }
 }
 //----------------------------------------------------------

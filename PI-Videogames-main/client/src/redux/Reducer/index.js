@@ -2,7 +2,7 @@
 const initialState = {
     videogames:[],
     videogame:[],
-    genres:[],
+    genders:[],
     platforms:[],
     detail:[],
     allVideoGames:[], // para ordenamiento
@@ -22,12 +22,17 @@ export default function rootReducer(state = initialState, action){
         case "GET_GENRES":
             return{
                 ...state,
-                genres: action.payload
+                genders: action.payload
             }
         case "GET_PLATFORMS":
             return{
                 ...state,
                 platforms: action.payload
+            }
+        case "REMOVE_DETAIL":
+            return{
+                ...state,
+                detail:action.payload
             }
 
         case "GET_VIDEOGAMES_NAME":

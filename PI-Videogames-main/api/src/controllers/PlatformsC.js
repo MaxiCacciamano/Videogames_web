@@ -24,6 +24,7 @@ try{
             name: game.name
         }
     })
+    
     return res.status(200).send(platformsReady)
 
 

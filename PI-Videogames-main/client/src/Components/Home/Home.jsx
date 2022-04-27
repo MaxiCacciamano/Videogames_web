@@ -88,7 +88,7 @@ export const Home = () => {
        {
          currentVideogames?.length > 0?
          currentVideogames?.map(e=>{
-           return <Card className={style.grid} image={e.image} name={e.name} genres={e.genres} id={e.id} key={e.id}/>
+           return <Card className={style.grid} image={e.image} name={e.name} genres={e.genres} platforms={e.platforms} id={e.id} key={e.id}/>
          })
          :
          <h1 className={style.cargando}>Cragando....</h1>

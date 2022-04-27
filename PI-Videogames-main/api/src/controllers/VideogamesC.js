@@ -39,7 +39,7 @@ const idVideoGames = async(req,res,next)=>{
                     }),
                     platforms: videogameDb.platforms.map((p)=>{
                         return {
-                            name: p.name
+                            name: p.name.toString(),
                         }
                     })
                     

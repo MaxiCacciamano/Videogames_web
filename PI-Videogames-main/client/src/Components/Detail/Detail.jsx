@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getVideogamesById, getAll} from "../../redux/Actions/index"
+import {getVideogamesById, getAll, removeDetail} from "../../redux/Actions/index"
 import {Link} from 'react-router-dom';
+import  './detail.modules.css';
 
 
 export const Detail = () => {
@@ -13,6 +14,9 @@ export const Detail = () => {
     // const detail = useSelector((state)=> state.detail)
   useEffect(() => {
       dispatch(getVideogamesById(id));
+      return (()=>{
+          dispatch(removeDetail())
+      })
     },[dispatch])
     
 
@@ -22,47 +26,68 @@ export const Detail = () => {
   return (
       
         <div>
-    
+            <div className="but">
             <br/><br/>
-            <Link to="/home"><button>Back</button></Link>
+            <Link to="/home"><button >Back</button></Link>
             <br /><br />
+            </div>
+
             {allDetail.name ? 
-            <div >
-                <div>
-                    <h1>Name:<br/>{allDetail.name}<br/></h1>
+            <div  >
+                <div className="tarje">
+                    <h1 >Name:</h1>
+                    <p> <br/>{allDetail.name}<br/>  </p>
                 </div>
-                <div>
+                <div className="tarje-image">
                     <img src={allDetail.image}/>
                 </div>
-                <div>
-                    <p>Description:<br/>{allDetail.description}<br/></p>
+                <div className="des">
+                    <p >Description:<br/>{allDetail.description}<br/></p>
                 </div>
-                <div>
-                    <p>Release Date:<br/>{allDetail.releaseDate}<br/></p>
+                <div className="container">
+                <div className="descrip">
+                    <p >Release Date:<br/>{allDetail.releaseDate}<br/></p>
                 </div>
-                <div>
-                    <p>Rating:<br/>{allDetail.rating}<br/></p>
+                <div className="descrip">
+                    <p >Rating:<br/>{allDetail.rating}<br/></p>
                 </div>
-                <div>
+                <div className="descrip" >
+                    <p>Genres: </p>
                     <ul>
-
-                    Genres: {allDetail.genres.map(gen=>{
+                     {allDetail.genres.map(gen=>{
                         return(
-                            <li  key={gen.name}>{gen.name}</li>
+                            <li  >{gen.name}</li>
                         )
                     })}
                     </ul>
-                </div>
-                <div>
-                    <ul>
-                        Platforms: {allDetail.platforms.map(plat=>{
+                </div >
+            {/* {
+                <div className="descrip">
+                <p>
+                      <strong>Platforms</strong>:
+                </p>
+                      {
+                         allDetail.platforms === "string"
+                         ?allDetail.platforms.map(plat=>plat)
+                         :allDetail.platforms.map(p=>p.name).join(",")
+                      }
+            </div>
+            } */}
+                        <p>
+                        Platforms:
+                        </p>
+
+                    <div>
+
+                         {allDetail.platforms.map(plat=>{
                             return(
-                                <li key={plat.name}>{plat}</li>
+                                <p key={plat.id}>{plat.name}</p>
                             )
                         })}
-                    </ul>
-                </div>
-            </div>  : 
+                    </div>
+                    
+            </div>  
+                </div> : 
                 <div>
                     <h1>CARGANDO...</h1>                  
                 </div>

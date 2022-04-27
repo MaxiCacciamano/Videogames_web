@@ -4,12 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterByGenres, getGenres } from '../../redux/Actions/index';
 
 const FilterByGenres = () => {
-    const genres = useSelector(state => state.genres)
+    const genres = useSelector(state => state.genders)
     const dispatch = useDispatch();
 
-    // useEffect (() => {
-    //     dispatch(getGenres())
-    // }, [dispatch])
 
     const handleSelectGenres = (e) => {
         e.preventDefault();
