@@ -82,10 +82,11 @@ export const Form = () => {
 
 
     function handlePlatforms(p){
+      !input.platforms.includes(e.target.value)?
       setInput({
         ...input,
         platforms:[...input.platforms, p.target.value]
-      })
+      }): alert("no se premite plataformas repetidas")
     }
     
     function handleSubmit(e){
