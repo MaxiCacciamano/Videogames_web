@@ -31,37 +31,50 @@ export function getVideogamesName (name){
 }
 
 
-export function getVideogamesById (id) {
-    if(id){
-        return async function(dispatch) {
-            try{
-                const {data}= await axios.get(`http://localhost:3001/videogame/${id}`);
-                // console.log(data,"aca estoy")
-                if (data.createdInDatabase){
-                    const II = data.genres.map(e=> Object.values(e.name).join(''))
-                    data.genres=II
-                    data.platforms === "string"
-                    ?data.platforms.map(plat=>plat)
-                    :data.platforms.map(p=>p.name.join(","))
+// export function getVideogamesById (id) {
+//     if(id){
+//         return async function(dispatch) {
+//             try{
+//                 const {data}= await axios.get(`http://localhost:3001/videogame/${id}`);
+//                 // console.log(data,"aca estoy")
+//                 if (data.createdInDatabase){
+//                     const II = data.genre.map(e=> e.name.join(','))
+//                     data.genre=II
+//                     // data.platforms === "string"
+//                     // ?data.platforms.map(plat=>plat)
+//                     // :data.platforms.map(p=>p.name.join(","))
                     
-                }
-                if(!data.createdInDatabase){
-                    data.description = data.description.replace(/(<([^>]+)>)/ig, '')
-                }
-                return dispatch({
-                    type: "GET_DETAILS_GAMES",
-                    payload: data
-                })
-            }
-            catch(e){
-                console.log("error en getvideogamesbyid", e)
-            }
+//                 }
+//                 if(!data.createdInDatabase){
+//                     data.description = data.description.replace(/(<([^>]+)>)/ig, '')
+//                 }
+//                 return dispatch({
+//                     type: "GET_DETAILS_GAMES",
+//                     payload: data
+//                 })
+//             }
+//             catch(e){
+//                 console.log("error en getvideogamesbyid", e)
+//             }
+//         }
+//     }else{
+//        {alert("error en getvideogames_by_id")}
+//     }
+// }
+export function getVideogamesById(id) {
+    return async function (dispatch) {
+        try {
+            const details = await axios.get(`http://localhost:3001/videogame/${id}`)
+            return dispatch({
+                type: "GET_DETAILS_GAMES",
+                payload: details.data
+            })
+        } catch (error) {
+            console.log(error, "error en el get-videogame_id")
         }
-    }else{
-       {alert("error en getvideogames_by_id")}
     }
 }
-    
+
 
 export const getGenres = () =>{
     return function(dispatch){

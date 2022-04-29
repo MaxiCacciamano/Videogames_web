@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import {Link,} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {postVideogames, getplatforms} from '../../redux/Actions/index'
+import {postVideogames, getplatforms,getGenres} from '../../redux/Actions/index'
 import style from './form.module.css'
 
 export const Form = () => {
@@ -9,7 +9,7 @@ export const Form = () => {
 
     
     // const history = useHistory(); 
-    const genres = useSelector((state) => state.genres);
+    const genre = useSelector((state) => state.genre);
     const platforms = useSelector((state) => state.platforms);
     const [errors, setErrors] = useState(true);
     const [input, setInput] = useState({
@@ -17,13 +17,14 @@ export const Form = () => {
       description:"",
       released:"",
       rating:"",
-      background_image:"",
+      image:"",
       platforms: [],
-      genres:[],
+      genre:[],
     });
     
     useEffect(()=>{
       dispatch(getplatforms() )
+      dispatch(getGenres())
     }, [dispatch])
   
       
@@ -67,11 +68,18 @@ export const Form = () => {
     }
     
     function handleSelect(e){
-      setInput({
-        ...input,
-        genres:[...input.genres, e.target.value]
-      })
+      e.preventDefault();
+      
+    // genres [hola, bao, sasa, etc, jacinto]
+    if(!input.genre.includes(e.target.value)){ 
+      return  setInput({
+         ...input,
+          genre:[...input.genre, e.target.value]
+        });
+      } 
+
     }
+
 
     function handlePlatforms(p){
       setInput({
@@ -90,10 +98,15 @@ export const Form = () => {
         rating:"",
         background_image:"",
         platforms: [],
-        genres:[]
+        genre:[]
       })
       if (input.name.length > 0 && input.description.length > 0 && input.rating > 0) return dispatch(postVideogames(input)),alert("Video game created successfully")
      alert("debe completar algunos campos")
+    }
+    
+    function handleDelete(e){
+      e.preventDefault()
+
     }
     
   return (
@@ -185,11 +198,12 @@ export const Form = () => {
                   <div className={style.caja1} >
                     <p>Genres</p>
                      <select onChange={handleSelect} className={style.caja1}>
-                     {genres.map(e => (
+                     {genre.map(e => (
                             <option value = {e.name} key={e.name} >{e.name}</option>
                         ))}
+                        
                      </select>
-                     <ul><li>{input.genres.map(e=>e+" ,")}</li></ul>
+                     <ul><li>{input.genre.map(e=>e+" ,")}</li></ul>
 
                   </div>
 

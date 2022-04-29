@@ -25,7 +25,7 @@ export const Detail = () => {
 
   return (
       
-        <div>
+        <div className="cargadno">
             <div className="but">
             <br/><br/>
             <Link to="/home"><button >Back</button></Link>
@@ -61,34 +61,31 @@ export const Detail = () => {
                     })}
                     </ul>
                 </div >
-            {/* {
+            {
                 <div className="descrip">
                 <p>
                       <strong>Platforms</strong>:
-                </p>
                       {
-                         allDetail.platforms === "string"
-                         ?allDetail.platforms.map(plat=>plat)
-                         :allDetail.platforms.map(p=>p.name).join(",")
-                      }
-            </div>
-            } */}
-                        <p>
-                        Platforms:
+                          allDetail.platforms === "string"
+                          ?allDetail.platforms.map(plat=>plat)
+                          :allDetail.platforms.map(p=>p.name).join(",")
+                        }
                         </p>
-
-                    <div>
+            </div>
+            }
+                    {/* <div className="descrip"> 
+                        <p>Platforms:</p>
 
                          {allDetail.platforms.map(plat=>{
                             return(
-                                <p key={plat.id}>{plat.name}</p>
+                                <li key={plat.id}>{plat}</li>
                             )
                         })}
-                    </div>
+                    </div> */}
                     
             </div>  
                 </div> : 
-                <div>
+                <div >
                     <h1>CARGANDO...</h1>                  
                 </div>
               }

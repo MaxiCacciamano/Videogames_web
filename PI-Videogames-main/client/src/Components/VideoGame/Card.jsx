@@ -13,17 +13,6 @@ export const Card = ({id,name, genres, image, platforms}) => {
       return arraygenres.length ? arraygenres.join(', '):'Genres not found'
     }
 
-    const arrayPlatforms = function(){
-      let arrayplatforms = [];
-      if(platforms){
-        for(let platfomrsA of platforms){
-          typeof msj === 'object'?arrayplatforms.push(platfomrsA):arrayplatforms.push(platfomrsA.name)
-        }
-        return arrayplatforms.length ? arrayplatforms.join(', '):'Platform not found';
-      }
-    }
-
-
 
   return (
     // container
@@ -40,11 +29,12 @@ export const Card = ({id,name, genres, image, platforms}) => {
           <p>Genres:</p>
           <p>{Arraygenres()}</p>
           <br />
-          <p>Platforms:</p>
-          <p>{arrayPlatforms()}</p>
+
+          <div className = "card-footer">
          <Link to={`/detail/${id}`}>
             <button>Read More</button>
          </Link>
+          </div>
           </div>
         </div>
     </div>

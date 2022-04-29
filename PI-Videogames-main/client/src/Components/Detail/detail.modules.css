@@ -2,7 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 } 
+body{
+    background-color: linear-gradient(to right, #a5fecb, #20bdff,#5433ff);
+}
 .container li{
     list-style: none;
 }
@@ -76,4 +80,7 @@
     height:40px;
     background-color:rgb(160, 202, 216);
     cursor: pointer;
+}
+.cargadno{
+    /* background: linear-gradient(to right, #a5fecb, #20bdff,#5433ff); */
 }

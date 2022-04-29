@@ -2,7 +2,7 @@ const { KEY_API } = process.env;
 const { Router } = require('express');
 const router = Router();
 const axios = require('axios').default;
-const { Videogame, Gender, Platforms } = require('../db');
+const { Videogame, Genre, Platforms } = require('../db');
 const VideogamesC = require('../controllers/VideogamesC');
 
 
@@ -51,7 +51,7 @@ const getDbGames = async ()=>{
         const DbInfo = await Videogame.findAll({
             include: [
                 {
-                    model: Gender,
+                    model: Genre,
                     attributes: ['name'], 
                     through: {
                         attributes: []

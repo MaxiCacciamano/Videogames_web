@@ -1,17 +1,17 @@
-const { Gender} = require('../db');
+const { Genre} = require('../db');
 const axios = require('axios');
 const {op} = require('sequelize');
 const { KEY_API } = process.env;
 
 const getGenresApi = async(req, res, next)=>{
     try{
-        const GenresDB = await Gender.findAll();
+        const GenresDB = await Genre.findAll();
         if(GenresDB.length) return res.send(GenresDB) //si existe los saco de la bd 
 
         const resGenres = await axios.get(`https://api.rawg.io/api/genres?key=${KEY_API}`);
         const genresResults = resGenres.data.results;
         genresResults.forEach(async g => {
-            await Gender.findOrCreate({
+            await Genre.findOrCreate({
                 where: {
                     name: g.name
                 }
